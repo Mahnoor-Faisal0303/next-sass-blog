@@ -1,0 +1,132 @@
+//.......................defined some colors variable...........................................
+
+$White: #fff;
+$Black: #000;
+$Red: #ff0000;
+$RedSecondary: #ff2d55;
+$Yellow: #ffd601;
+$YellowSecondary: #ffd60a;
+$LightBlack: #374151;
+$Gray: rgba(255, 255, 255, 0.5);
+$LightGrey: #9ea7b8;
+$DarkBlack: rgba(255, 255, 255, 0.05);
+$SecondaryBlack: rgba(255, 255, 255, 0.04);
+$PrimaryRed: #ec2f4b;
+$PrimaryGreen: #00ff41;
+
+//.......................Using for loops..........................................................
+
+//font size
+$sizes: 1px, 2px, 3px, 4px, 5px, 6px, 7px, 8px, 9px, 10px, 11px, 12px, 13px,
+  14px, 15px, 16px, 17px, 18px, 19px, 20px, 21px, 22px, 23px, 24px, 25px, 26px,
+  27px, 28px, 29px, 30px, 31px, 32px, 33px, 34px, 35px, 36px, 37px, 38px, 39px,
+  40px, 41px, 42px, 43px, 44px, 45px, 46px, 47px, 48px !default;
+
+@function size($i) {
+  @return nth($sizes, $i);
+}
+
+@mixin font-sizes {
+  @for $i from 1 through length($sizes) {
+    .font-size-#{$i} {
+      font-size: size($i);
+    }
+  }
+}
+@include font-sizes;
+
+//font weights
+$weights: 100, 200, 300, 400, 500, 600, 700, 800, 900 !default;
+
+@function weight($j) {
+  @return nth($weights, $j);
+}
+
+@mixin font-weights {
+  @for $i from 1 through length($weights) {
+    .font-weight-#{weight($i)} {
+      font-weight: weight($i);
+    }
+  }
+}
+
+@include font-weights;
+
+// ..........................................while loops .................................................
+
+$border: 0;
+
+@mixin border-radius {
+  @while $border <= 100 {
+    .border-radius-#{$border} {
+      border-radius: #{$border}px;
+    }
+    $border: $border + 2;
+  }
+}
+
+@include border-radius;
+
+//.............................................each loops..................................................
+
+//margin, padding, and line-height 
+$spaceAmounts: 2, 4, 6, 8, 10, 12, 14, 20, 30, 40, 50,100, auto;
+$sides: (top, bottom, left, right);
+
+@mixin spaces {
+  @each $space in $spaceAmounts {
+    @each $side in $sides {
+      .m-#{str-slice($side, 0, 1)}-#{$space} {
+        margin-#{$side}: #{$space}px;
+      }
+
+      .p-#{str-slice($side, 0, 1)}-#{$space} {
+        padding-#{$side}: #{$space}px;
+      }
+
+      .ln-h-#{$space} {
+        line-height: #{$space}px;
+      }
+    }
+  }
+}
+
+//background colors
+@include spaces;
+
+$colors: (
+  primary: #3498db,
+  secondary: #2ecc71,
+  accent: #e74c3c,
+);
+
+@mixin color {
+  @each $name, $color in $colors {
+    .#{$name} {
+      background-color: $color;
+    }
+
+    .#{$name}-light {
+      background-color: lighten($color, 20%);
+    }
+
+    .#{$name}-dark {
+      background-color: darken($color, 20%);
+    }
+  }
+}
+
+@include color;
+
+//width
+$widths : 50 , 100, 200;
+
+@mixin width {
+    @each $width in $widths { 
+        .width-#{$width} {
+            width: #{$width}px;
+        }
+    }
+}
+
+@include width;
